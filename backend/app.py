@@ -19,6 +19,10 @@ def get_db_connection():
         db=os.getenv("DB_NAME")
     )
 
+def validar_email(email):
+    email_formato = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    return re.match(email_formato, email)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -28,6 +32,10 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         senha = request.form["senha"]
+
+        if not validar_email(email):
+            flash("Email inválido!", "error")
+            return redirect("/login")
 
         with closing(get_db_connection()) as db:
             cursor = db.cursor()
@@ -50,11 +58,21 @@ def cadastro():
         email = request.form("email")
         senha = request.form("senha")
 
+        if not validar_email(email):
+            flash("Email inválido!", "error")
+            return redirect("/cadastro")
+
         with closing(get_db_connection()) as db: 
-         cursor = db.cursor()
-         cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
-         (nome, email, senha))
-        db.commit()
+            cursor = db.cursor()
+            try:
+                cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
+                (nome, email, senha))
+                db.commit()
+                flash("Cadastro realizado com sucesso! Faça login.", "sucesso")
+            except MySQLdb.Error as e:
+                flash("Erro ao cadastrar usuário: {}".format(e), "error")
+                return redirect("/cadastro")
+    
 
         return redirect("/login")
     
