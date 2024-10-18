@@ -13,7 +13,6 @@ CREATE TABLE servicos (
     nome_servico VARCHAR(100) NOT NULL,
     descricao VARCHAR(255),
     preço DECIMAL(10, 2) NOT NULL,
-    duração_estimativa INT, -- em minutos
+    duração_estimativa INT,
     disponibilidade BOOLEAN DEFAULT TRUE
 );
-
