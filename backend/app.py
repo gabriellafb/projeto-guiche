@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, flash
-import MySQLdb
+import pymysql
 from contextlib import closing
 import re
 import os
@@ -12,7 +12,7 @@ app = Flask(__name__, static_folder='../frontend/static',
 app.secret_key = os.getenv("SECRET_KEY")
 
 def get_db_connection():
-    return MySQLdb.connect(
+    return pymysql.connect(
         host=os.getenv("DB_HOST"),
         user=os.getenv("DB_USER"),
         passwd=os.getenv("DB_PASSWORD"),
