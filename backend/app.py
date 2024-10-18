@@ -28,14 +28,19 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         senha = request.form["senha"]
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s",
-        (email, senha))
-        user = cursor.fetchone()
+
+        with closing(get_db_connection()) as db:
+            cursor = db.cursor()
+            cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s",
+            (email, senha))
+            user = cursor.fetchone()
+
         if user:
             return redirect("/")
         else:
-            return "Login falhou"
+            flash("Login falhou! Verifique seu email e senha.", "error")
+            return redirect("/login")
+        
     return render_template("login.html")
 
 @app.route('/cadastro', methods=["GET", "POST"])
@@ -44,11 +49,15 @@ def cadastro():
         nome = request.form("nome")
         email = request.form("email")
         senha = request.form("senha")
-        cursor = db.cursor()
-        cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
-        (nome, email, senha))
+
+        with closing(get_db_connection()) as db: 
+         cursor = db.cursor()
+         cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
+         (nome, email, senha))
         db.commit()
+
         return redirect("/login")
+    
     return render_template('cadastro.html')
 
 if __name__ == '__main__':
