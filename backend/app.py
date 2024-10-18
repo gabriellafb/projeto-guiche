@@ -1,18 +1,23 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 import MySQLdb
-from dotenv import load_dotenv
+from contextlib import closing
+import re
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__, static_folder='../frontend/static',
                       template_folder='../frontend/templates')
-db = MySQLdb.connect(
-    host=os.getenv("DB_HOST"),
-    user=os.getenv("DB_USER"),
-    passwd=os.getenv("DB_PASSWORD"),
-    db=os.getenv("DB_NAME")
-)
+app.secret_key = os.getenv("SECRET_KEY")
+
+def get_db_connection():
+    return MySQLdb.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        passwd=os.getenv("DB_PASSWORD"),
+        db=os.getenv("DB_NAME")
+    )
 
 @app.route('/')
 def index():
