@@ -9,7 +9,18 @@
 <body>
     <div class="container">
         <h1>Cadastro</h1>
-        <form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/cadastro">
             <label for="nome">Nome Completo:</label>
             <input type="text" id="nome" name="nome" required>
 
@@ -24,6 +35,8 @@
 
             <button type="submit">Cadastrar</button>
         </form>
+
+        <p>Já tem uma conta? <a href="/login">Faça login aqui</a>.</p>
     </div>
 </body>
 </html>
