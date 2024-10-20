@@ -63,10 +63,20 @@ def cadastro():
             flash("Email inválido!", "error")
             return redirect("/cadastro")
 
-        hashed_password = generate_password_hash(senha)
+        if len(senha) < 6:
+            flash("A senha deve ter pelo menos 6 caracteres.", "error")
+            return redirect("/cadastro")
 
         with closing(get_db_connection()) as db: 
             cursor = db.cursor()
+
+            cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+            if cursor.fetchone():
+                flash("Email já cadastrado!", "error")
+                return redirect("/cadastro")
+
+            hashed_password = generate_password_hash(senha)
+
             try:
                 cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
                 (nome, email, senha, hashed_password))
