@@ -4,6 +4,7 @@ from contextlib import closing
 import re
 import os
 from dotenv import load_dotenv
+from werkzeug.security import generate_password_hash, check_password_hash
 
 load_dotenv()
 
@@ -43,7 +44,7 @@ def login():
             (email, senha))
             user = cursor.fetchone()
 
-        if user:
+        if user and check_password_hash(user[3], senha):
             return redirect("/")
         else:
             flash("Login falhou! Verifique seu email e senha.", "error")
@@ -62,14 +63,16 @@ def cadastro():
             flash("Email inválido!", "error")
             return redirect("/cadastro")
 
+        hashed_password = generate_password_hash(senha)
+
         with closing(get_db_connection()) as db: 
             cursor = db.cursor()
             try:
                 cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
-                (nome, email, senha))
+                (nome, email, senha, hashed_password))
                 db.commit()
                 flash("Cadastro realizado com sucesso! Faça login.", "sucesso")
-            except MySQLdb.Error as e:
+            except pymysql.Error as e:
                 flash("Erro ao cadastrar usuário: {}".format(e), "error")
                 return redirect("/cadastro")
     
