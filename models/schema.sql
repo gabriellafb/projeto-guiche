@@ -1,9 +1,9 @@
 
-CREATE TABLE cliente(
-	id_cliente int not null PRIMARY KEY AUTO_INCREMENT
-	nome_cliente varchar(50)
-	sobrenome_cliente varchar(50)
-	email_cliente varchar(255)
+CREATE TABLE usuarios(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    senha VARCHAR(255)
 	
 );
 

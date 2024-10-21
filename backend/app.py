@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, session
 import pymysql
 from contextlib import closing
 import re
@@ -40,12 +40,12 @@ def login():
 
         with closing(get_db_connection()) as db:
             cursor = db.cursor()
-            cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s",
-            (email, senha))
+            cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
             user = cursor.fetchone()
 
         if user and check_password_hash(user[3], senha):
-            return redirect("/")
+            session['usuario'] = user[0]
+            return redirect("/servicos")
         else:
             flash("Login falhou! Verifique seu email e senha.", "error")
             return redirect("/login")
@@ -55,9 +55,9 @@ def login():
 @app.route('/cadastro', methods=["GET", "POST"])
 def cadastro():
     if request.method == "POST":
-        nome = request.form("nome")
-        email = request.form("email")
-        senha = request.form("senha")
+        nome = request.form["nome"]
+        email = request.form["email"]
+        senha = request.form["senha"]
 
         if not validar_email(email):
             flash("Email inválido!", "error")
@@ -79,17 +79,30 @@ def cadastro():
 
             try:
                 cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
-                (nome, email, senha, hashed_password))
+                (nome, email, hashed_password))
                 db.commit()
                 flash("Cadastro realizado com sucesso! Faça login.", "sucesso")
             except pymysql.Error as e:
                 flash("Erro ao cadastrar usuário: {}".format(e), "error")
                 return redirect("/cadastro")
     
-
         return redirect("/login")
     
     return render_template('cadastro.html')
+
+@app.route('/servicos')
+def servicos():
+    if 'usuario' not in session:
+        flash("Você precisa estar logado para acessar esta página.", "error")
+        return redirect("/login")
+    
+    return render_template('servicos.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    flash("Você foi desconectado com sucesso.", "sucesso")
+    return redirect("/login")
 
 if __name__ == '__main__':
     app.run(debug=True)

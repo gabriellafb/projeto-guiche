@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Atende Já</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <span class="logo">ATENDE JÁ</span>
+            <a href="/logout" class="btn-logout">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <h1>Bem-vindo à área de Serviços</h1>
+        <p>Aqui você pode gerenciar as filas de atendimento da sua empresa.</p>
+
+        <section class="services">
+            <div class="service">
+                <h2>Fila de Espera</h2>
+                <p>Gerencie a ordem de chegada dos clientes.</p>
+                <button class="btn-servico">Acessar</button>
+            </div>
+            <div class="service">
+                <h2>Check-ins</h2>
+                <p>Verifique clientes que fizeram check-in.</p>
+                <button class="btn-servico">Acessar</button>
+            </div>
+            <div class="service">
+                <h2>Histórico</h2>
+                <p>Veja o histórico de atendimentos.</p>
+                <button class="btn-servico">Acessar</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
