@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATENDE JA - Cadastro</title>
-    <link rel="stylesheet" href="/frontend/static/cadastro.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
 </head>
 <body>
     <div class="container">
         <h1>Cadastro</h1>
-        <form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/cadastro">
             <label for="nome">Nome Completo:</label>
             <input type="text" id="nome" name="nome" required>
 
@@ -19,11 +30,10 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
 
-            <label for="data-nascimento">Data de Nascimento:</label>
-            <input type="date" id="data-nascimento" name="data-nascimento" required>
-
             <button type="submit">Cadastrar</button>
         </form>
+
+        <p>Já tem uma conta? <a href="/login">Faça login aqui</a>.</p>
     </div>
 </body>
 </html>
