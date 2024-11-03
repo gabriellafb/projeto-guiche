@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* Para remover qualquer deslocamento inesperado */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.header {
+    width: 100%;
+    background-color: #4a90e2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    position: fixed;
+    /* Fixar a barra no topo da página */
+    top: 0;
+    /* Garante que a barra fique colada ao topo */
+    height: auto;
+    /* Ajuste automático de altura */
+    z-index: 1000;
+    /* Para garantir que a barra fique acima de outros elementos */
+}
+
+.header h1 {
+    font-size: 24px;
+}
+
+.back-button {
+    font-size: 24px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.content {
+    text-align: center;
+    padding: 100px 20px 20px;
+    /* Adiciona padding no topo para não sobrepor o conteúdo */
+}
+
+
+.content h2 {
+    font-size: 24px;
+    color: #4a90e2;
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background-color: #FFFF;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 185px;
+    height: 230px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.icon {
+    width: 46px;
+    height: 66px;
+    object-fit: contain;
+    color: #4a90e2;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+button {
+    margin-top: auto;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #357ab8;
+}
