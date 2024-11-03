@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, flash, session
+from flask import Flask, render_template, request, redirect, flash, jsonify
 import pymysql
 from contextlib import closing
 import re
 import os
+import jwt
+import datetime
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -11,6 +13,8 @@ load_dotenv()
 app = Flask(__name__, static_folder='../frontend/static',
                       template_folder='../frontend/templates')
 app.secret_key = os.getenv("SECRET_KEY")
+JWT_SECRET = os.getenv("JWT_SECRET")
+JWT_ALGORITHM = "HS256"
 
 def get_db_connection():
     return pymysql.connect(
@@ -23,6 +27,24 @@ def get_db_connection():
 def validar_email(email):
     email_formato = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
     return re.match(email_formato, email)
+
+def gerar_token(usuario_id):
+    payload = {
+        "sub": usuario_id,
+        "iat": datetime.datetime.utcnow(),
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1)
+    }
+    token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return token
+
+def verificar_token(token):
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        return payload["sub"]
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None
 
 @app.route('/')
 def index():
@@ -44,8 +66,8 @@ def login():
             user = cursor.fetchone()
 
         if user and check_password_hash(user[3], senha):
-            session['usuario'] = user[0]
-            return redirect("/servicos")
+            token = gerar_token(user[0])
+            return jsonify({"token": token}), 200
         else:
             flash("Login falhou! Verifique seu email e senha.", "error")
             return redirect("/login")
@@ -92,15 +114,20 @@ def cadastro():
 
 @app.route('/servicos')
 def servicos():
-    if 'usuario' not in session:
+    token = request.headers.get('Authorization')
+    if not token:
         flash("Você precisa estar logado para acessar esta página.", "error")
+        return redirect("/login")
+
+    usuario_id = verificar_token(token.split(" ")[1])
+    if usuario_id is None:
+        flash("Token inválido ou expirado.", "error")
         return redirect("/login")
     
     return render_template('servicos.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('usuario', None)
     flash("Você foi desconectado com sucesso.", "sucesso")
     return redirect("/login")
 
