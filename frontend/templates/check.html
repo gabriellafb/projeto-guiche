@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-In | Atenda Já</title>
+    <link rel="stylesheet" href="/frontend/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Bem-vindo ao <span>Atenda Já</span></h1>
+            <p>Faça seu check-in para continuar</p>
+            <form id="checkin-form">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <button type="submit" class="check-in-button">Check-In</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("checkin-form").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+            
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            
+            
+            const userList = JSON.parse(localStorage.getItem("userList")) || [];
+            
+            
+            userList.push({ name, email });
+            
+            
+            localStorage.setItem("userList", JSON.stringify(userList));
+            
+            
+            window.location.href = "confirmation.html";
+        });
+    </script>
+</body>
+</html>
