@@ -12,22 +12,22 @@ body {
 }
 
 .large-font {
-    font-size: 20px; /* Aumente o tamanho da fonte conforme necessário */
+    font-size: 20px; 
 }
 
 .large-title {
-    font-size: 45px; /* Tamanho do título para deficientes visuais */
+    font-size: 45px; 
 }
 
 .large-input {
-    font-size: 20px; /* Aumenta o tamanho da barra de pesquisa */
-    padding: 15px; /* Aumenta o padding da barra de pesquisa */
-    width: 320px; /* Aumenta a largura da barra de pesquisa */
+    font-size: 20px; 
+    padding: 15px; 
+    width: 320px; 
 }
 
 .large-button {
-    font-size: 20px; /* Aumenta o tamanho do botão de pesquisa */
-    padding: 15px 25px; /* Aumenta o padding do botão */
+    font-size: 20px; 
+    padding: 15px 25px; 
 }
 
 .historico-header {
@@ -135,7 +135,7 @@ button:hover {
     text-align: left;
 }
 
-/* Estilos para a janela modal de deficiência visual */
+/*janela modal de deficiência visual */
 .modal {
     display: none; 
     position: fixed;
@@ -195,3 +195,6 @@ button:hover {
 .search-container button {
     background-color: #4682B4;
 }
+
+
+
