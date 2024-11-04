@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Ordem de Chegada - Atende Já</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/gerenciador.css">
 </head>
 <body>
     <!-- Modal para a pergunta de acessibilidade -->
@@ -19,9 +19,9 @@
     <!-- Header -->
     <header class="historico-header">
         <h1>Atende Já</h1>
+        <button class="back-button" onclick="history.back()">Voltar</button>
     </header>
 
-    
     <div class="header-section">
         <h2>Gerenciamento de Ordem de Chegada</h2>
         <button onclick="adicionarCliente()">Adicionar Cliente</button>
@@ -31,7 +31,6 @@
     <main class="order-container">
         
         <div id="client-list" class="client-list">
-            
             
         </div>
     </main>
