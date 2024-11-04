@@ -37,6 +37,16 @@ def gerar_token(usuario_id):
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return token
 
+def validar_campos(email, senha=None):
+    if not validar_email(email):
+        flash("Email inválido!", "error")
+        return False
+    if senha and len(senha) < 6:
+        flash("A senha deve ter pelo menos 6 caracteres.", "error")
+        return False
+    return True
+
+
 def verificar_token(token):
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
