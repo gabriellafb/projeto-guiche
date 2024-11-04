@@ -54,9 +54,9 @@
         }
 
         const clients = [
-            { nome: "Ana Souza de Souza", idade: 65, prioridade: true },
+            { nome: "Ana Souza de Oliveira", idade: 65, prioridade: true },
             { nome: "Carlos Pereira da Cruz", idade: 34, prioridade: false },
-            { nome: "Joana Silva do Nascimento", idade: 28, prioridade: true },
+            { nome: "Joana Silva do Nascimento", idade: 28, prioridade: true, },
             { nome: "José Ferreira Cruz", idade: 75, prioridade: true },
         ];
 
@@ -86,7 +86,7 @@
         function adicionarCliente() {
             const nome = prompt("Nome do cliente:");
             const idade = prompt("Idade do cliente:");
-            const prioridade = confirm("Este cliente é idoso (60+), grávida ou deficiente?");
+            const prioridade = confirm("O cliente se encaixa nesse padrão? (+60 anos), gestante ou deficiente");
 
             if (nome && idade) {
                 clients.push({ nome, idade: parseInt(idade), prioridade });
