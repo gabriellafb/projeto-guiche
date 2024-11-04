@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Ordem de Chegada - Atende Já</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <!-- Modal para a pergunta de acessibilidade -->
+    <div id="accessibilityModal" class="modal">
+        <div class="modal-content">
+            <p>Você é deficiente visual?</p>
+            <button onclick="setAccessibility(true)">Sim</button>
+            <button onclick="setAccessibility(false)">Não</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="historico-header">
+        <h1>Atende Já</h1>
+    </header>
+
+    
+    <div class="header-section">
+        <h2>Gerenciamento de Ordem de Chegada</h2>
+        <button onclick="adicionarCliente()">Adicionar Cliente</button>
+    </div>
+
+    <!-- Main Container -->
+    <main class="order-container">
+        
+        <div id="client-list" class="client-list">
+            
+            
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("accessibilityModal");
+            modal.style.display = "flex"; 
+        });
+
+        
+        function setAccessibility(isAccessible) {
+            const modal = document.getElementById("accessibilityModal");
+            modal.style.display = "none"; 
+
+            if (isAccessible) {
+                document.body.classList.add("font-large");
+            }
+            displayClients();
+        }
+
+        const clients = [
+            { nome: "Ana Souza de Souza", idade: 65, prioridade: true },
+            { nome: "Carlos Pereira da Cruz", idade: 34, prioridade: false },
+            { nome: "Joana Silva do Nascimento", idade: 28, prioridade: true },
+            { nome: "José Ferreira Cruz", idade: 75, prioridade: true },
+        ];
+
+        function displayClients() {
+            const clientList = document.getElementById("client-list");
+            clientList.innerHTML = "";
+
+            const sortedClients = clients.sort((a, b) => b.prioridade - a.prioridade);
+
+            sortedClients.forEach((client, index) => {
+                const clientItem = document.createElement("div");
+                clientItem.classList.add("client-item");
+
+                if (client.prioridade) {
+                    clientItem.classList.add("priority");
+                }
+
+                clientItem.innerHTML = `
+                    <p><strong>${index + 1}. Nome:</strong> ${client.nome}</p>
+                    <p><strong>Idade:</strong> ${client.idade}</p>
+                    <p><strong>Prioridade:</strong> ${client.prioridade ? "Sim" : "Não"}</p>
+                `;
+                clientList.appendChild(clientItem);
+            });
+        }
+
+        function adicionarCliente() {
+            const nome = prompt("Nome do cliente:");
+            const idade = prompt("Idade do cliente:");
+            const prioridade = confirm("Este cliente é idoso (60+), grávida ou deficiente?");
+
+            if (nome && idade) {
+                clients.push({ nome, idade: parseInt(idade), prioridade });
+                displayClients();
+            }
+        }
+    </script>
+</body>
+</html>
