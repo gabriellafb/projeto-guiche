@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atende Já</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="visualImpairmentDialog" class="modal">
+        <div class="modal-content">
+            <p>Você é deficiente visual?</p>
+            <button onclick="setVisualImpairment('sim')">Sim</button>
+            <button onclick="setVisualImpairment('nao')">Não</button>
+        </div>
+    </div>
+
+    <header class="historico-header">
+        <h1>Atende Já</h1>
+    </header>
+
+    <main class="historico-container2">
+        <section class="history">
+            <h2 id="historyTitle">Histórico de Atendimentos</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Digite o CPF para pesquisar..." />
+                <button id="searchButton" onclick="searchCPF()">Pesquisar</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <!-- Atendimento 1 -->
+                <div class="history-item">
+                    <p><strong>Nome do Cliente:</strong> Geraldo Sebastião Pedro Henrique da Mota</p>
+                    <p><strong>CPF:</strong> 417.447.624-14</p>
+                    <p><strong>Email:</strong> geraldo_sebastiao_damota@gmail.com</p>
+                    <p><strong>Data de Nascimento:</strong> 18/05/1995</p>
+                    <div class="attendance-dates">
+                        <p>Datas de Atendimento:</p>
+                        <ul>
+                            <li>15/06/2023</li>
+                            <li>10/07/2023</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Atendimento 2 -->
+                <div class="history-item">
+                    <p><strong>Nome do Cliente:</strong> Victor Henry Lopes</p>
+                    <p><strong>CPF:</strong> 466.641.204-29</p>
+                    <p><strong>Email:</strong> victor-lopes87@outlook.com</p>
+                    <p><strong>Data de Nascimento:</strong> 25/02/1995</p>
+                    <div class="attendance-dates">
+                        <p>Datas de Atendimento:</p>
+                        <ul>
+                            <li>20/05/2023</li>
+                            <li>30/08/2023</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Atendimento 3 -->
+                <div class="history-item">
+                    <p><strong>Nome do Cliente:</strong> Maria Clara dos Santos</p>
+                    <p><strong>CPF:</strong> 222.333.444-55</p>
+                    <p><strong>Email:</strong> mariaclara.santos@gmail.com</p>
+                    <p><strong>Data de Nascimento:</strong> 10/10/1988</p>
+                    <div class="attendance-dates">
+                        <p>Datas de Atendimento:</p>
+                        <ul>
+                            <li>15/01/2023</li>
+                            <li>25/02/2023</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Atendimento 4 -->
+                <div class="history-item">
+                    <p><strong>Nome do Cliente:</strong> Carlos Alberto da Silva</p>
+                    <p><strong>CPF:</strong> 111.222.333-44</p>
+                    <p><strong>Email:</strong> carlos.alberto@gmail.com</p>
+                    <p><strong>Data de Nascimento:</strong> 30/03/1975</p>
+                    <div class="attendance-dates">
+                        <p>Datas de Atendimento:</p>
+                        <ul>
+                            <li>12/04/2023</li>
+                            <li>18/05/2023</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Atendimento 5 -->
+                <div class="history-item">
+                    <p><strong>Nome do Cliente:</strong> Ana Paula Mendes</p>
+                    <p><strong>CPF:</strong> 555.666.777-88</p>
+                    <p><strong>Email:</strong> anapaula.mendes@gmail.com</p>
+                    <p><strong>Data de Nascimento:</strong> 05/08/1990</p>
+                    <div class="attendance-dates">
+                        <p>Datas de Atendimento:</p>
+                        <ul>
+                            <li>23/09/2023</li>
+                            <li>01/10/2023</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Atendimento 6 -->
+                <div class="history-item">
+                    <p><strong>Nome do Cliente:</strong> Lucas Pereira</p>
+                    <p><strong>CPF:</strong> 999.888.777-66</p>
+                    <p><strong>Email:</strong> lucas.pereira@hotmail.com</p>
+                    <p><strong>Data de Nascimento:</strong> 12/12/1985</p>
+                    <div class="attendance-dates">
+                        <p>Datas de Atendimento:</p>
+                        <ul>
+                            <li>15/11/2023</li>
+                            <li>29/11/2023</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function searchCPF() {
+            const input = document.getElementById('searchInput').value;
+            const filter = input.replace(/[^0-9]/g, ''); // Remove LETRAS
+            const historyItems = document.querySelectorAll('.history-item');
+
+            historyItems.forEach(item => {
+                const cpf = item.querySelector('p:nth-child(2)').innerText.split(': ')[1].replace(/[.\-]/g, ''); // Obtenha o CPF e limpe os caracteres especiais
+                if (cpf.includes(filter)) {
+                    item.style.display = ''; // Mostra se o CPF corresponder
+                } else {
+                    item.style.display = 'none'; // Esconde se não corresponder
+                }
+            });
+        }
+
+        function setVisualImpairment(answer) {
+            const body = document.body;
+            const historyTitle = document.getElementById('historyTitle');
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+
+            if (answer === 'sim') {
+                body.classList.add('large-font');
+                historyTitle.classList.add('large-title');
+                searchInput.classList.add('large-input');
+                searchButton.classList.add('large-button');
+            }
+            document.getElementById('visualImpairmentDialog').style.display = 'none'; // Fecha a janela de pergunta
+        }
+
+        // Exibir o diálogo ao carregar a página
+        window.onload = function() {
+            document.getElementById('visualImpairmentDialog').style.display = 'flex';
+        };
+    </script>
+</body>
+</html>
