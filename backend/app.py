@@ -126,6 +126,34 @@ def servicos():
     
     return render_template('servicos.html')
 
+@app.route('/gerenciador')
+def gerenciador():
+    token = request.headers.get('Authorization')
+    if not token:
+        flash("Você precisa estar logado para acessar esta página.", "error")
+        return redirect("/login")
+
+    usuario_id = verificar_token(token.split(" ")[1])
+    if usuario_id is None:
+        flash("Token inválido ou expirado.", "error")
+        return redirect("/login")
+    
+    return render_template('gerenciador.html')
+
+@app.route('/historico')
+def historico():
+    token = request.headers.get('Authorization')
+    if not token:
+        flash("Você precisa estar logado para acessar esta página.", "error")
+        return redirect("/login")
+
+    usuario_id = verificar_token(token.split(" ")[1])
+    if usuario_id is None:
+        flash("Token inválido ou expirado.", "error")
+        return redirect("/login")
+    
+    return render_template('historico.html')
+
 @app.route('/logout')
 def logout():
     flash("Você foi desconectado com sucesso.", "sucesso")
