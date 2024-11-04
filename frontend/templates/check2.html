@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-In Confirmado | Atenda Já</title>
+    <link rel="stylesheet" href="/frontend/static/check2.css">
+</head>
+<body>
+    
+    <header class="top-bar">
+        <h1>Atende Já</h1>
+    </header>
+    
+    <div class="container">
+        <div class="confirmation-card">
+            <h1>Check-In Concluído!</h1>
+            <hr class="divider"> 
+            <p>Veja a lista de usuários que fizeram check-in:</p>
+            <ul id="user-list"></ul>
+            <button id="clear-button" class="clear-button">Limpar Dados</button>
+            <a href="index.html" class="back-button">Voltar para o Início</a>
+        </div>
+        
+
+    <script>
+        function loadUserList() {
+            const userList = JSON.parse(localStorage.getItem("userList")) || [];
+            const userListElement = document.getElementById("user-list");
+            userListElement.innerHTML = ""; 
+            userList.forEach(user => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Nome: ${user.name} | Email: ${user.email}`;
+                userListElement.appendChild(listItem);
+            });
+        }
+
+        function clearUserData() {
+            localStorage.removeItem("userList");  
+            loadUserList(); 
+        }
+
+        document.getElementById("clear-button").addEventListener("click", clearUserData);
+
+        loadUserList();
+    </script>
+</body>
+</html>
