@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header.historico-header {
+    background-color: #4682B4;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+h1 {
+    margin: 0;
+    padding-right: 20px;
+}
+
+.header-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.order-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #55ff00;
+    border-radius: 8px;
+}
+
+.header-section h2 {
+    color: #001f75;
+    font-size: 25px; 
+    margin-bottom: 20px;
+}
+
+.header-section button {
+    padding: 10px 20px;
+    background-color: #4682B4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.header-section button:hover {
+    background-color: #36688d;
+}
+
+.client-list {
+    margin-top: 20px;
+}
+
+.client-item {
+    background-color: #f0f8ff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+}
+
+.client-item p {
+    margin: 5px 0;
+}
+
+
+.client-item.priority {
+    background-color: #d0dcff;
+    border: 2px solid #446fa1;
+}
+
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content p {
+    font-size: 30px;
+}
+
+.modal-content button {
+    margin: 20px;
+    padding: 20px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+}
+
+.modal-content button:first-child {
+    background-color: #000000; 
+}
+
+.modal-content button:last-child {
+    background-color: #7b7b7b; 
+}
+
+
+.font-large {
+    font-size: 20px; 
+}
+
+.font-large h2 {
+    font-size: 50px; 
+}
+
+.font-large .header-section button {
+    padding: 20px 40px; 
+}
+
+
